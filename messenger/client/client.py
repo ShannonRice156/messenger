@@ -12,6 +12,9 @@ class Client(SocketItem):
     def connect_to_socket(self) -> None:
         '''Connects the client to the server socket'''
         self._socket.connect((self.info.host, self.info.port))
+    
+    def __eq__(self, __value: object) -> bool:
+        return self.socket == __value.socket
 
 def Run() -> None:
     '''Main server method to start client connection'''

@@ -1,4 +1,5 @@
 '''A module that creates the server side of the system'''
+import socket
 import threading
 from py_shared.socket.sockets import SocketItem
 from py_shared.socket.socket_info import Info
@@ -35,13 +36,15 @@ class MessageServer(SocketItem):
         '''Reoccuring loop to accept any new client connections 
            and generate their own threads to check for messages'''
         while True:
-            new_socket = self.socket.accept()
+            new_socket, x = self.socket.accept()
             new_client = Client(Info())
-            new_client.send('Connected')
             new_client.socket = new_socket
-            self._clients.append(new_client)
-            thread = threading.Thread(target=self.check_messages, args=(new_client,))
-            thread.start()
+            if self._clients.count(new_client) == 0:
+                new_client.send('Connected')
+                self._clients.append(new_client)
+                thread = threading.Thread(target=self.check_messages, args=(new_client,))
+                thread.start()
+
 
 def main() -> None:
     '''Main server method to start server if it is not already running'''
