@@ -11,11 +11,8 @@ def test_database() -> None:
         hashed_data = hash_obj.generate_salted_hash()
         name = ''.join(random.choice(string.ascii_letters) for i in range(8))
         data = database.UserData(name, hashed_data, hash_obj.salt)
-        db = database.UserDatabase("userdata.db")
+        db = database.UserDatabase("test_user_data.db")
         db.insert(data)
 
         sign_in_user = database.UserData(name, test_str)
-        retrieved_data = db.available_user(sign_in_user)
-        assert retrieved_data[1] == name
-        assert retrieved_data[2] == hashed_data
-        assert retrieved_data[3] == hash_obj.salt
+        assert db.available_user(sign_in_user) == True

@@ -5,17 +5,15 @@ from py_shared.socket.socket_info import Info
 
 class Client(SocketItem):
     ''' A class that handles the client socket connection and communication'''
-    def send_input(self):
+    def send_input(self, text: str):
         '''Awaits client input and sends message to super class to handle'''
-        while True:
-            message = input()
-            super().send(message)
+        super().send(text)
 
     def connect_to_socket(self) -> None:
         '''Connects the client to the server socket'''
         self._socket.connect((self.info.host, self.info.port))
 
-def main() -> None:
+def Run() -> None:
     '''Main server method to start client connection'''
     sender = Client(Info())
     thread2 = threading.Thread(target=sender.send_input)
@@ -23,6 +21,3 @@ def main() -> None:
 
     while True:
         print(sender.receive())
-
-if __name__ == "__main__":
-    main()

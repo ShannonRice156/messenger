@@ -1,8 +1,7 @@
-'''Main module to be called from the command line to invoke the client code'''
-from messenger.client import client
+from main_window import main_loop
 
 def main() -> None:
     '''main method to run the client code'''
-    client.main()
+    main_loop()
 
 main()
