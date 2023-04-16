@@ -3,7 +3,7 @@ import threading
 from PyQt5.QtWidgets import QApplication
 from messenger.database.database import UserData
 from messenger.login.login import Account, LoginType
-from messenger.UI.login.main import Login
+from messenger.UI.login.login_ui import Login
 from messenger.UI.messenger.messenger_ui import Messenger
 from messenger.client.client import Client
 from py_shared.socket.socket_info import Info
@@ -24,7 +24,7 @@ def __log_in(main_app: QApplication, data: UserData) -> None:
     token = Account().login(data)
     if token is not None:
         if token.type == LoginType.SUCCESSFUL:
-            sender = Client(Info())
+            sender = Client(Info(), data)
             messenger = Messenger(main_app, sender.send_input)
             thread = threading.Thread(target=check_messages, args=(messenger,sender))
             thread.daemon = True

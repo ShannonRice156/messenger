@@ -1,19 +1,13 @@
 '''Module to handle all messenger UI classes and functions'''
-import os
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication
+from ..base_ui import Base
 
-class Messenger(QMainWindow):
+class Messenger(Base):
     '''Class to handle the display of the UI elements and their interactions'''
     def __init__(self, app: QApplication, send: callable) -> None:
         '''Initialises UI elements and sets the callable send function to be callable within this class'''
-        super(Messenger, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Messenger.ui"), self)
+        super(Messenger, self).__init__(app, "Messenger.ui")
         self.send = send
-        app.activeWindow.destroy()
-        app.activeWindow = self
-        self.app = app
-        self.show()
         self.pushButton.clicked.connect(self.send_pressed)
 
     def send_pressed(self) -> None:
