@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
 from messenger.database.database import UserData
@@ -7,7 +8,7 @@ class Login(QMainWindow):
     '''Class to handle the display of the UI elements and their interactions'''
     def __init__(self, app: QApplication, login: callable, signup: callable) -> None:
         super(Login, self).__init__()
-        uic.loadUi("ui_files/login.ui", self)
+        uic.loadUi(os.path.join(os.path.dirname(os.path.abspath(__file__)), "login.ui"), self)
         self.check_login = login
         self.add_account = signup
         app.activeWindow = self

@@ -5,7 +5,9 @@ from messenger.database.database import UserData
 from messenger.login.login import Account, LoginType
 from messenger.UI.login.main import Login
 from messenger.UI.messenger.messenger_ui import Messenger
-from messenger.client.client import Client, Info
+from messenger.client.client import Client
+from py_shared.socket.socket_info import Info
+
 
 
 def __login(main_app: QApplication) -> UserData:

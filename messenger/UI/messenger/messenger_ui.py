@@ -1,4 +1,5 @@
 '''Module to handle all messenger UI classes and functions'''
+import os
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
 
@@ -7,7 +8,7 @@ class Messenger(QMainWindow):
     def __init__(self, app: QApplication, send: callable) -> None:
         '''Initialises UI elements and sets the callable send function to be callable within this class'''
         super(Messenger, self).__init__()
-        uic.loadUi("ui_files/Messenger.ui", self)
+        uic.loadUi(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Messenger.ui"), self)
         self.send = send
         app.activeWindow.destroy()
         app.activeWindow = self
@@ -16,8 +17,8 @@ class Messenger(QMainWindow):
         self.pushButton.clicked.connect(self.send_pressed)
 
     def send_pressed(self) -> None:
-        '''Retrieves text from the second text edit UI element and passes it through to the send method'''
-        self.send(self.lineEdit.text())
+        '''Retrieves text from the text edit UI element and passes it through to the send method'''
+        self.send(self.inputbox.text())
 
     def message_recieved(self, message: str) -> None:
         '''Updates text box with message given and sets scrollbar to the maximum'''
