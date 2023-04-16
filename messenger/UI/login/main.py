@@ -4,6 +4,7 @@ from messenger.database.database import UserData
 from messenger.login.login import LoginToken
 
 class Login(QMainWindow):
+    '''Class to handle the display of the UI elements and their interactions'''
     def __init__(self, app: QApplication, login: callable, signup: callable) -> None:
         super(Login, self).__init__()
         uic.loadUi("ui_files/login.ui", self)
@@ -20,6 +21,3 @@ class Login(QMainWindow):
 
     def signup(self) -> None:
         self.add_account(UserData(self.plainTextEdit.toPlainText(), self.plainTextEdit_2.toPlainText()))
-
-
-## make super class to maybe go in shared. On init destroy active window and relace with self, loaduic and show
